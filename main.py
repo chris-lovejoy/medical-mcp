@@ -3,6 +3,7 @@ import json
 import os
 from mcp.server.fastmcp import FastMCP
 from dotenv import load_dotenv
+from bs4 import BeautifulSoup
 
 load_dotenv()
 
@@ -35,14 +36,15 @@ async def search_web(query: str) -> dict | None:
             return {"organic": []}
 
 
-
-def fetch_url(url: str) -> str:
-    """
-    Fetch a URL and return the content.
-    """
-    # TODO: implement this
-    return "TODO"
-
+async def fetch_url(url: str) -> str:
+   async with httpx.AsyncClient() as client:
+       try:
+           response = await client.get(url, timeout=30.0)
+           soup = BeautifulSoup(response.text, "html.parser")
+           text = soup.get_text()
+           return text
+       except httpx.TimeoutException:
+           return "Timeout error"
 
 
 @mcp.tool()
