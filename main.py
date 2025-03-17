@@ -12,7 +12,7 @@ mcp = FastMCP("medical-mcp")
 SERPER_URL = "https://google.serper.dev/search"
 
 urls = {
-    "NICE": "https://www.nice.org.uk/"
+    "NICE": "www.nice.org.uk/"
 }
 
 
@@ -48,16 +48,30 @@ async def fetch_url(url: str) -> str:
 
 
 @mcp.tool()
-def get_nice_guidance(query: str) -> str:
+async def get_nice_guidance(query: str) -> str:
     """
-    Get guidance from NICE on a given topic.
+    Get guidance for a given topic from NICE.
+
+    Args:
+        query (str): The topic to get guidance for (eg. "high blood pressure")
+
+    Returns:
+        str: The guidance for the given topic.
     """
-    # TODO: implement this
-    return "TODO"
+
+    query = f"site:{urls['NICE']} {query}"
+    results = await search_web(query)
+    if len(results["organic"]) == 0:
+        return "No results found"
+       
+    text = ""
+    for result in results["organic"]:
+        text += await fetch_url(result["link"])
+    return text
 
 
 if __name__ == "__main__":
 
     print("Starting medical-mcp server...")
     
-    mcp.run()
+    mcp.run(transport="stdio")
