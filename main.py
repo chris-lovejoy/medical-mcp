@@ -1,33 +1,47 @@
 from mcp.server.fastmcp import FastMCP
+from dotenv import load_dotenv
+
+load_dotenv()
 
 mcp = FastMCP("medical-mcp")
 
+SERPER_URL = "https://google.serper.dev/search"
+
+urls = {
+    "NICE": "https://www.nice.org.uk/"
+}
+
+
+
+
+def search_web(query: str) -> str:  
+    """
+    Search the web for information on a given topic.
+    """
+    # TODO: implement this
+    return "TODO"
+
+
+def fetch_url(url: str) -> str:
+    """
+    Fetch a URL and return the content.
+    """
+    # TODO: implement this
+    return "TODO"
+
+
 
 @mcp.tool()
-def get_bmi(height: float, weight: float) -> float:
+def get_nice_guidance(query: str) -> str:
     """
-    Calculate the Body Mass Index (BMI) of a person.
-
-    Args:
-        height (float): The height of the person in meters.
-        weight (float): The weight of the person in kilograms.
-
-    Returns:
-        float: The BMI of the person.
+    Get guidance from NICE on a given topic.
     """
-    return weight / (height ** 2)
-
-
-# def main():
-#     print("Hello from medical-mcp!")
+    # TODO: implement this
+    return "TODO"
 
 
 if __name__ == "__main__":
 
     print("Starting medical-mcp server...")
     
-    # Start the server - this is what was missing
     mcp.run()
-
-
-    # main()
