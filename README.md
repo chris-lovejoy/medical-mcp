@@ -4,3 +4,11 @@ This is a connector to allow Claude Desktop (or any MCP client) to access medica
 
 
 (WIP)
+
+
+
+
+## Potentail Next Steps
+
+- [ ] Consider adding caching to avoid repeat requests
+
