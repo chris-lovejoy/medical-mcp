@@ -8,7 +8,7 @@ This is a connector to allow Claude Desktop (or any MCP client) to access medica
 
 
 
-## Potentail Next Steps
+## Potential Next Steps
 
 - [ ] Consider adding caching to avoid repeat requests
 
